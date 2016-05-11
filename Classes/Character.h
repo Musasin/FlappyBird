@@ -18,8 +18,21 @@ public:
     
     bool init() override;
     
+    void onEnter() override;
+    void update(float dt) override;
+    void jump();
+    
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
+    
+    float velocity;
+    const int  ACCEL = -750;
+    
+    enum birdState {
+        STOP,
+        JUMP,
+        FALL
+    }state;
 };
 
 #endif /* defined(__Bird__Character__) */

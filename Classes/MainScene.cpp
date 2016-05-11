@@ -2,6 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "CharacterReader.h"
+#include "Character.h"
 
 USING_NS_CC;
 
@@ -43,7 +44,36 @@ bool MainScene::init()
     rootNode->setContentSize(size);
     ui::Helper::doLayout(rootNode);
     
+    auto back = rootNode->getChildByName("back");
+    this->character = back->getChildByName<Character*>("character");
+    
     addChild(rootNode);
     
     return true;
 }
+
+#pragma mark - protected
+
+void MainScene::onEnter()
+{
+    Layer::onEnter();
+    this->setupTouchHandling();
+    this->scheduleUpdate();
+}
+
+void MainScene::setupTouchHandling()
+{
+    auto touchListener = EventListenerTouchOneByOne::create();
+    
+    touchListener->onTouchBegan = [&](Touch* touch, Event* event)
+    {
+        this->character->jump();
+        //Vec2 touchLocation = this->convertTouchToNodeSpace(touch);
+        return true;
+    };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+}
+
+
+
+
