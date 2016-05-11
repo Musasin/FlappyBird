@@ -1,6 +1,7 @@
 #include "MainScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "CharacterReader.h"
 
 USING_NS_CC;
 
@@ -31,7 +32,10 @@ bool MainScene::init()
     {
         return false;
     }
-    
+
+    CSLoader* instance = CSLoader::getInstance();
+    instance->registReaderObject("CharacterReader", (ObjectFactory::Instance) CharacterReader::getInstance);
+
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
     

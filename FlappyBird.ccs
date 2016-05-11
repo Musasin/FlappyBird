@@ -69,7 +69,6 @@
             <Image Name="white.png" />
           </Folder>
         </Folder>
-        <Image Name="2016-05-11 17.40.44.png" />
         <Image Name="2016-05-11 17.45.26.png" />
         <Project Name="Character.csd" Type="Node" />
         <Image Name="HelloWorld.png" />
