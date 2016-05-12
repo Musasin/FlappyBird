@@ -51,3 +51,16 @@ void Character::jump()
     this->state = birdState::JUMP;
     this->velocity = JUMP_SPEED;
 }
+
+Rect Character::getRect()
+{
+    Size spriteSize = this->getChildByName("bird")->Sprite::getContentSize() * 0.8;
+    Vec2 rectPosition = this->getPosition() - (spriteSize / 2);
+//
+//    Sprite* sprite = Sprite::create();
+//    sprite->setTextureRect(Rect(rectPosition, spriteSize));
+//    sprite->setColor(Color3B::BLACK);
+//    this->addChild(sprite);
+    
+    return Rect(rectPosition, spriteSize);
+}

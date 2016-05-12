@@ -15,6 +15,7 @@ Scene* MainScene::createScene()
 {
     auto scene = Scene::create();
     auto layer = MainScene::create();
+    
     scene->addChild(layer);
 
     return scene;
@@ -64,10 +65,32 @@ void MainScene::onEnter()
 
 void MainScene::update(float dt)
 {
+    
     for(auto obstacle : this->obstacles)
     {
         obstacle->moveLeft(dt * OBSTACLE_SPEED);
     }
+    
+    Rect characterRect = this->character->getRect();
+    
+    for(auto obstacle : this->obstacles)
+    {
+        auto obstacleRects = obstacle->getRects();
+        
+        for(Rect obstacleRect : obstacleRects)
+        {   
+            bool hit = characterRect.intersectsRect(obstacleRect);
+            
+            if(hit)
+            {
+                CCLOG("HIT!");
+                this->unscheduleAllCallbacks();
+            }
+            else
+                CCLOG("NOT HIT");
+        }
+    }
+    
 }
 
 void MainScene::setupTouchHandling()
@@ -76,7 +99,6 @@ void MainScene::setupTouchHandling()
     
     touchListener->onTouchBegan = [&](Touch* touch, Event* event)
     {
-        //this->createObstacle();
         this->character->jump();
         //Vec2 touchLocation = this->convertTouchToNodeSpace(touch);
         return true;

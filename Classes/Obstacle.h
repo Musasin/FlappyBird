@@ -21,6 +21,7 @@ public:
     
     void onEnter() override;
     void update(float dt) override;
+    std::vector<cocos2d::Rect> getRects();
     
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
