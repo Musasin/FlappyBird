@@ -32,6 +32,8 @@ private:
     Character* character;
     cocos2d::Vector<Obstacle*> obstacles;
     cocos2d::Node* background;
+    cocos2d::Node* groundA;
+    cocos2d::Node* groundB;
     State state;
     
     void setupTouchHandling();

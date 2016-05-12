@@ -43,7 +43,12 @@ bool MainScene::init()
     ui::Helper::doLayout(rootNode);
     
     this->background = rootNode->getChildByName("back");
-    background->getChildByName("ground")->setLocalZOrder(1);
+    
+    this->groundA = background->getChildByName("groundA");
+    this->groundA->setLocalZOrder(1);
+    this->groundB = background->getChildByName("groundB");
+    this->groundB->setLocalZOrder(1);
+                           
     background->getChildByName("character")->setLocalZOrder(2);
     this->character = this->background->getChildByName<Character*>("character");
     
@@ -66,29 +71,56 @@ void MainScene::onEnter()
 void MainScene::update(float dt)
 {
     
-    for(auto obstacle : this->obstacles)
-    {
-        obstacle->moveLeft(dt * OBSTACLE_SPEED);
-    }
-    
     Rect characterRect = this->character->getRect();
     
-    for(auto obstacle : this->obstacles)
+    switch(this->state)
     {
-        auto obstacleRects = obstacle->getRects();
-        
-        for(Rect obstacleRect : obstacleRects)
-        {   
-            bool hit = characterRect.intersectsRect(obstacleRect);
+        case State::Ready:
+            break;
+        case State::Playing:
             
-            if(hit)
+            groundA->setPosition(groundA->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
+            groundB->setPosition(groundB->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
+            if(groundA->getPosition().x < 0.0f)
+                groundA->setPosition(groundB->getPosition() + Vec2(groundB->getContentSize().width, 0.0f));
+            if(groundB->getPosition().x < 0.0f)
+                groundB->setPosition(groundA->getPosition() + Vec2(groundA->getContentSize().width, 0.0f));
+            
+            for(auto obstacle : this->obstacles)
             {
-                CCLOG("HIT!");
-                triggerGameOver();
+                obstacle->moveLeft(dt * OBSTACLE_SPEED);
             }
-            else
-                CCLOG("NOT HIT");
-        }
+            
+            for(auto obstacle : this->obstacles)
+            {
+                auto obstacleRects = obstacle->getRects();
+                
+                for(Rect obstacleRect : obstacleRects)
+                {
+                    bool hit = characterRect.intersectsRect(obstacleRect);
+                    
+                    if(hit)
+                    {
+                        CCLOG("HIT!");
+                        triggerGameOver();
+                    }
+                    else
+                        CCLOG("NOT HIT");
+                }
+            }
+            
+            break;
+        case State::GameOver:
+            break;
+    }
+    
+    if(characterRect.origin.y <= groundA->getPosition().y)
+    {
+        this->character->setPositionY(groundA->getPosition().y + (this->character->getChildByName("bird")->getContentSize().height / 2));
+        //this->character->setPositionY(100);
+        CCLOG("HIT!");
+        triggerGameOver();
+        character->stopPlay();
     }
     
 }
@@ -113,8 +145,6 @@ void MainScene::setupTouchHandling()
             auto crossFade = TransitionFade::create(0.5f, nextGameScene);
             Director::getInstance()->replaceScene(crossFade);
             break;
-        //default:
-        //    break;
         }
         return true;
     };
@@ -152,7 +182,7 @@ void MainScene::triggerPlaying()
 void MainScene::triggerGameOver()
 {
     this->state = State::GameOver;
-    this->unscheduleAllCallbacks();
+    //this->unscheduleAllCallbacks();
     this->unschedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle));
 }
 

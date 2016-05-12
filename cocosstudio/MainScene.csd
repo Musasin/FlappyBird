@@ -6,7 +6,7 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="288.0000" Y="512.0000" />
         <Children>
-          <AbstractNodeData Name="back" ActionTag="-207187413" Tag="3" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
+          <AbstractNodeData Name="back" ActionTag="-207187413" Tag="3" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="0.0000" RightMargin="-0.0001" TopMargin="0.8655" BottomMargin="-0.8655" ctype="SpriteObjectData">
             <Size X="288.0000" Y="512.0000" />
             <Children>
               <AbstractNodeData Name="character" ActionTag="236461299" Tag="6" IconVisible="True" LeftMargin="89.0000" RightMargin="199.0000" TopMargin="255.0001" BottomMargin="256.9999" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -19,23 +19,34 @@
                 <PreSize X="0.0000" Y="0.0000" />
                 <FileData Type="Normal" Path="Character.csd" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="ground" ActionTag="1129668372" Tag="10" IconVisible="False" LeftMargin="0.0001" RightMargin="-48.0001" TopMargin="402.0000" BottomMargin="-2.0000" ctype="SpriteObjectData">
+              <AbstractNodeData Name="groundA" ActionTag="1129668372" Tag="10" IconVisible="False" LeftMargin="0.0000" RightMargin="-48.0000" TopMargin="402.0000" BottomMargin="-2.0000" ctype="SpriteObjectData">
                 <Size X="336.0000" Y="112.0000" />
-                <AnchorPoint ScaleY="1.0000" />
-                <Position X="0.0001" Y="110.0000" />
+                <AnchorPoint ScaleX="1.0000" ScaleY="1.0000" />
+                <Position X="336.0000" Y="110.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0000" Y="0.2148" />
+                <PrePosition X="1.1667" Y="0.2148" />
+                <PreSize X="1.1667" Y="0.2188" />
+                <FileData Type="Normal" Path="Assets/stage/ground.png" Plist="" />
+                <BlendFunc Src="1" Dst="771" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="groundB" ActionTag="-1310163975" Tag="31" IconVisible="False" LeftMargin="287.9985" RightMargin="-335.9985" TopMargin="402.0004" BottomMargin="-2.0004" ctype="SpriteObjectData">
+                <Size X="336.0000" Y="112.0000" />
+                <AnchorPoint ScaleX="1.0000" ScaleY="1.0000" />
+                <Position X="623.9985" Y="109.9996" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="2.1667" Y="0.2148" />
                 <PreSize X="1.1667" Y="0.2188" />
                 <FileData Type="Normal" Path="Assets/stage/ground.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="144.0000" Y="256.0000" />
+            <Position X="144.0000" Y="255.1345" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
+            <PrePosition X="0.5000" Y="0.4983" />
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="Assets/background/back1.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
@@ -51,13 +62,13 @@
             <FileData Type="Normal" Path="2016-05-11 17.45.26.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="FileNode_2" ActionTag="310777007" Tag="20" IconVisible="True" LeftMargin="321.1900" RightMargin="-33.1900" TopMargin="272.8124" BottomMargin="239.1876" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+          <AbstractNodeData Name="FileNode_2" ActionTag="310777007" Tag="20" IconVisible="True" LeftMargin="374.8502" RightMargin="-86.8502" TopMargin="272.8124" BottomMargin="239.1876" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
-            <Position X="321.1900" Y="239.1876" />
+            <Position X="374.8502" Y="239.1876" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="1.1152" Y="0.4672" />
+            <PrePosition X="1.3016" Y="0.4672" />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Obstacle.csd" Plist="" />
           </AbstractNodeData>
