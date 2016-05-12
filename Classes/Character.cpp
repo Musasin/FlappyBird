@@ -7,6 +7,7 @@
 //
 
 #include "Character.h"
+#include "Constants.h"
 #include <math.h>
 
 using namespace cocos2d;
@@ -40,7 +41,7 @@ void Character::onEnter()
 void Character::update(float dt)
 {
     if(this->state != birdState::STOP)
-        this->velocity += ACCEL * dt;
+        this->velocity += GRAVITY_ACCEL * dt;
     this->velocity = MAX(this->velocity, -500);
     this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
 }
@@ -48,5 +49,5 @@ void Character::update(float dt)
 void Character::jump()
 {
     this->state = birdState::JUMP;
-    this->velocity = 250;
+    this->velocity = JUMP_SPEED;
 }

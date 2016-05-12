@@ -2,7 +2,10 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "CharacterReader.h"
+#include "ObstacleReader.h"
 #include "Character.h"
+#include "Obstacle.h"
+#include "Constants.h"
 
 USING_NS_CC;
 
@@ -10,16 +13,10 @@ using namespace cocostudio::timeline;
 
 Scene* MainScene::createScene()
 {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
     auto layer = MainScene::create();
-
-    // add layer as a child to scene
     scene->addChild(layer);
 
-    // return the scene
     return scene;
 }
 
@@ -36,7 +33,7 @@ bool MainScene::init()
 
     CSLoader* instance = CSLoader::getInstance();
     instance->registReaderObject("CharacterReader", (ObjectFactory::Instance) CharacterReader::getInstance);
-
+    instance->registReaderObject("ObstacleReader", (ObjectFactory::Instance) ObstacleReader::getInstance);
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
     
@@ -44,8 +41,10 @@ bool MainScene::init()
     rootNode->setContentSize(size);
     ui::Helper::doLayout(rootNode);
     
-    auto back = rootNode->getChildByName("back");
-    this->character = back->getChildByName<Character*>("character");
+    this->background = rootNode->getChildByName("back");
+    background->getChildByName("ground")->setLocalZOrder(1);
+    background->getChildByName("character")->setLocalZOrder(2);
+    this->character = this->background->getChildByName<Character*>("character");
     
     addChild(rootNode);
     
@@ -59,6 +58,16 @@ void MainScene::onEnter()
     Layer::onEnter();
     this->setupTouchHandling();
     this->scheduleUpdate();
+    
+    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+}
+
+void MainScene::update(float dt)
+{
+    for(auto obstacle : this->obstacles)
+    {
+        obstacle->moveLeft(dt * OBSTACLE_SPEED);
+    }
 }
 
 void MainScene::setupTouchHandling()
@@ -67,6 +76,7 @@ void MainScene::setupTouchHandling()
     
     touchListener->onTouchBegan = [&](Touch* touch, Event* event)
     {
+        //this->createObstacle();
         this->character->jump();
         //Vec2 touchLocation = this->convertTouchToNodeSpace(touch);
         return true;
@@ -74,6 +84,22 @@ void MainScene::setupTouchHandling()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 
+void MainScene::createObstacle(float dt)
+{
+    Obstacle* obstacle = dynamic_cast<Obstacle*>(CSLoader::createNode("Obstacle.csb"));
+    this->background->addChild(obstacle);
+    
+    float y = OBSTACLE_MIN_Y + (CCRANDOM_0_1() * (OBSTACLE_MAX_Y - OBSTACLE_MIN_Y));
+    obstacle->setPosition(Vec2(OBSTACLE_INIT_X, y));
+    this->obstacles.pushBack(obstacle);
+    
+    if(this->obstacles.size() > OBSTACLE_LIMIT)
+    {
+        this->obstacles.front()->removeFromParent();
+        this->obstacles.erase(this->obstacles.begin());
+    }
+    
+}
 
 
 

@@ -26,7 +26,6 @@ protected:
     cocostudio::timeline::ActionTimeline* timeline;
     
     float velocity;
-    const int  ACCEL = -750;
     
     enum birdState {
         STOP,

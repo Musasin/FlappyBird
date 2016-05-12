@@ -40,10 +40,10 @@
             <FileData Type="Normal" Path="Assets/background/back1.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="screen_shot" ActionTag="715172542" VisibleForFrame="False" Tag="9" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-171.9954" RightMargin="-172.0046" TopMargin="-225.0206" BottomMargin="-220.9794" ctype="SpriteObjectData">
+          <AbstractNodeData Name="screen_shot" ActionTag="715172542" VisibleForFrame="False" Tag="9" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-172.0000" RightMargin="-172.0000" TopMargin="-224.9968" BottomMargin="-221.0032" ctype="SpriteObjectData">
             <Size X="632.0000" Y="958.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="144.0046" Y="258.0206" />
+            <Position X="144.0000" Y="257.9968" />
             <Scale ScaleX="0.4556" ScaleY="0.4556" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.5039" />
