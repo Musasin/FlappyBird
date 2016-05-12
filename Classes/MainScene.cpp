@@ -60,7 +60,7 @@ void MainScene::onEnter()
     this->setupTouchHandling();
     this->scheduleUpdate();
     
-    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+    triggerReady();
 }
 
 void MainScene::update(float dt)
@@ -84,7 +84,7 @@ void MainScene::update(float dt)
             if(hit)
             {
                 CCLOG("HIT!");
-                this->unscheduleAllCallbacks();
+                triggerGameOver();
             }
             else
                 CCLOG("NOT HIT");
@@ -99,8 +99,23 @@ void MainScene::setupTouchHandling()
     
     touchListener->onTouchBegan = [&](Touch* touch, Event* event)
     {
-        this->character->jump();
-        //Vec2 touchLocation = this->convertTouchToNodeSpace(touch);
+        switch(this->state)
+        {
+        case State::Ready:
+            this->triggerPlaying();
+            this->character->jump();
+        break;
+        case State::Playing:
+            this->character->jump();
+            break;
+        case State::GameOver:
+            auto nextGameScene = MainScene::createScene();
+            auto crossFade = TransitionFade::create(0.5f, nextGameScene);
+            Director::getInstance()->replaceScene(crossFade);
+            break;
+        //default:
+        //    break;
+        }
         return true;
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -121,6 +136,24 @@ void MainScene::createObstacle(float dt)
         this->obstacles.erase(this->obstacles.begin());
     }
     
+}
+
+void MainScene::triggerReady()
+{
+    this->state = State::Ready;
+    this->character->stopPlay();
+}
+void MainScene::triggerPlaying()
+{
+    this->state = State::Playing;
+    this->character->startPlay();
+    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle), OBSTACLE_TIME_SPAN);
+}
+void MainScene::triggerGameOver()
+{
+    this->state = State::GameOver;
+    this->unscheduleAllCallbacks();
+    this->unschedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle));
 }
 
 

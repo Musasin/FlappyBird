@@ -60,6 +60,9 @@ std::vector<Rect> Obstacle::getRects()
     rects.push_back(Rect(rectPosition, spriteSize));
     
     
+    //auto pipeTopRect = pipeTop->getBoundingBox();
+    //pipeTopRect.origin += this->getPosition();
+    //上記二行でもOK. BoundingBoxは親から見たRectを割り出してくれる。
     
 //    Sprite* sprite = Sprite::create();
 //    sprite->setTextureRect(Rect(Vec2::ZERO, spriteSize));

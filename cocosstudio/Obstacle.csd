@@ -17,10 +17,10 @@
             <FileData Type="Normal" Path="Assets/stage/pipe1_down.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="pipe_bottom" ActionTag="1543378161" Tag="12" IconVisible="False" LeftMargin="-26.0000" RightMargin="-26.0000" TopMargin="50.0000" BottomMargin="-370.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="pipe_bottom" ActionTag="1543378161" Tag="12" IconVisible="False" LeftMargin="-25.9999" RightMargin="-26.0001" TopMargin="51.3668" BottomMargin="-371.3668" ctype="SpriteObjectData">
             <Size X="52.0000" Y="320.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="1.0000" />
-            <Position Y="-50.0000" />
+            <Position X="0.0001" Y="-51.3668" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

@@ -25,8 +25,7 @@ bool Character::init()
     this->timeline->retain();
     
     this->velocity = 0;
-    
-    this->state = birdState::STOP;
+    this->isPlaying = false;
     
     return true;
 }
@@ -40,16 +39,23 @@ void Character::onEnter()
 
 void Character::update(float dt)
 {
-    if(this->state != birdState::STOP)
+    if(isPlaying)
+    {
         this->velocity += GRAVITY_ACCEL * dt;
-    this->velocity = MAX(this->velocity, -500);
-    this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
+        this->velocity = MAX(this->velocity, -500);
+        this->setPosition(this->getPosition() + Vec2(0, this->velocity * dt));
+    }
 }
 
 void Character::jump()
 {
-    this->state = birdState::JUMP;
     this->velocity = JUMP_SPEED;
+    
+    this->stopAllActions();
+    this->runAction(this->timeline);
+    
+    this->timeline->play("fly", false);
+    
 }
 
 Rect Character::getRect()
@@ -63,4 +69,18 @@ Rect Character::getRect()
 //    this->addChild(sprite);
     
     return Rect(rectPosition, spriteSize);
+}
+
+
+void Character::setIsPlaying(bool isPlaying)
+{
+    this->isPlaying = isPlaying;
+}
+void Character::startPlay()
+{
+    this->isPlaying = true;
+}
+void Character::stopPlay()
+{
+    this->isPlaying = false;
 }

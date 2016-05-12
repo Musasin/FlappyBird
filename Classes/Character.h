@@ -23,16 +23,15 @@ public:
     void jump();
     cocos2d::Rect getRect();
     
+    void setIsPlaying(bool isPlaying);
+    void startPlay();
+    void stopPlay();
+    
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
     
     float velocity;
-    
-    enum birdState {
-        STOP,
-        JUMP,
-        FALL
-    }state;
+    bool isPlaying;
 };
 
 #endif /* defined(__Bird__Character__) */

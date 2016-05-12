@@ -6,7 +6,7 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="288.0000" Y="512.0000" />
         <Children>
-          <AbstractNodeData Name="back" Visible="False" ActionTag="-207187413" Tag="3" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
+          <AbstractNodeData Name="back" ActionTag="-207187413" Tag="3" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
             <Size X="288.0000" Y="512.0000" />
             <Children>
               <AbstractNodeData Name="character" ActionTag="236461299" Tag="6" IconVisible="True" LeftMargin="89.0000" RightMargin="199.0000" TopMargin="255.0001" BottomMargin="256.9999" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
