@@ -2,7 +2,7 @@
 #define __MAIN_SCENE_SCENE_H__
 
 #include "cocos2d.h"
-
+#include "ui/CocosGUI.h"
 #include "Obstacle.h"
 
 class Character;
@@ -34,13 +34,17 @@ private:
     cocos2d::Node* background;
     cocos2d::Node* groundA;
     cocos2d::Node* groundB;
+    cocos2d::ui::TextBMFont* scoreLabel;
     State state;
+    int score;
     
     void setupTouchHandling();
     void createObstacle(float dt);
     void triggerReady();
     void triggerPlaying();
     void triggerGameOver();
+    void moveGround(float dt);
+    void setScore(int score);
 };
 
 #endif // __MAIN_SCENE_SCENE_H__

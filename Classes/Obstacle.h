@@ -25,7 +25,6 @@ public:
     
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
-    
 };
 
 #endif /* defined(__Bird__Obstacle__) */

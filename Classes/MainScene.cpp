@@ -52,6 +52,8 @@ bool MainScene::init()
     background->getChildByName("character")->setLocalZOrder(2);
     this->character = this->background->getChildByName<Character*>("character");
     
+    this->scoreLabel = this->background->getChildByName<ui::TextBMFont*>("scoreLabel");
+    this->scoreLabel->setLocalZOrder(3);
     addChild(rootNode);
     
     return true;
@@ -76,21 +78,17 @@ void MainScene::update(float dt)
     switch(this->state)
     {
         case State::Ready:
+            moveGround(dt);
             break;
         case State::Playing:
-            
-            groundA->setPosition(groundA->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
-            groundB->setPosition(groundB->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
-            if(groundA->getPosition().x < 0.0f)
-                groundA->setPosition(groundB->getPosition() + Vec2(groundB->getContentSize().width, 0.0f));
-            if(groundB->getPosition().x < 0.0f)
-                groundB->setPosition(groundA->getPosition() + Vec2(groundA->getContentSize().width, 0.0f));
+        {
+            float moveDistance = dt * OBSTACLE_SPEED;
+            moveGround(dt);
             
             for(auto obstacle : this->obstacles)
             {
                 obstacle->moveLeft(dt * OBSTACLE_SPEED);
             }
-            
             for(auto obstacle : this->obstacles)
             {
                 auto obstacleRects = obstacle->getRects();
@@ -109,7 +107,16 @@ void MainScene::update(float dt)
                 }
             }
             
+            float characterX = this->character->getPositionX();
+            for(auto obstacle : this->obstacles)
+            {
+                float currentX = obstacle->getPositionX();
+                if(currentX + moveDistance > characterX && currentX <= characterX) {
+                    setScore(this->score + 1);
+                }
+            }
             break;
+        }
         case State::GameOver:
             break;
     }
@@ -172,6 +179,7 @@ void MainScene::triggerReady()
 {
     this->state = State::Ready;
     this->character->stopPlay();
+    this->setScore(0);
 }
 void MainScene::triggerPlaying()
 {
@@ -186,5 +194,25 @@ void MainScene::triggerGameOver()
     this->unschedule(CC_SCHEDULE_SELECTOR(MainScene::createObstacle));
 }
 
+void MainScene::moveGround(float dt)
+{
+    groundA->setPosition(groundA->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
+    groundB->setPosition(groundB->getPosition() - Vec2(dt * OBSTACLE_SPEED, 0));
+    
+    //ラムダ式による実装
+    auto groundScrollCheck = [&](Node* ground, Node* baddyGround) {
+        if(ground->getPositionX() < 0) {
+            ground->setPosition(baddyGround->getPosition() + Vec2(baddyGround->getContentSize().width, 0.0f));
+        }
+    };
+    groundScrollCheck(this->groundA, this->groundB);
+    groundScrollCheck(this->groundB, this->groundA);
+    
+}
 
+void MainScene::setScore(int score)
+{
+    this->score = score;
+    this->scoreLabel->setString(std::to_string(score));
+}
 

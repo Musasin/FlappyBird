@@ -50,13 +50,13 @@ std::vector<Rect> Obstacle::getRects()
     auto pipe = this->getChildByName<Sprite*>("pipe_top");
     Size spriteSize = pipe->Sprite::getContentSize();
     Vec2 position = this->getPosition() + pipe->getPosition();
-    Vec2 rectPosition = Vec2(position.x - (spriteSize.width / 2), position.y);
+    Vec2 rectPosition = Vec2(position.x, position.y);
     rects.push_back(Rect(rectPosition, spriteSize));
     
     pipe = this->getChildByName<Sprite*>("pipe_bottom");
     spriteSize = pipe->Sprite::getContentSize();
     position = this->getPosition() + pipe->getPosition();
-    rectPosition = Vec2(position.x - (spriteSize.width / 2), position.y - spriteSize.height);
+    rectPosition = Vec2(position.x, position.y - spriteSize.height);
     rects.push_back(Rect(rectPosition, spriteSize));
     
     
